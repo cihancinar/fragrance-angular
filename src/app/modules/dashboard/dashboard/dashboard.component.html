@@ -1,0 +1,96 @@
+<div *ngIf="isLoading()">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+
+<div class="container">
+  <h2>Dashboard</h2>
+
+
+  <div fxLayout="row wrap" fxLayoutGap="10px grid">
+    <div fxFlex="25%">
+      <div *ngIf="loadingProduct">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-card>
+        <mat-card-title fxLayoutAlign="center center"><span
+          *ngIf="dataSourceProduct?.length">{{dataSourceProduct.length}}</span> - Products
+        </mat-card-title>
+      </mat-card>
+    </div>
+    <div fxFlex="25%">
+      <div *ngIf="loadingBrand">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-card>
+        <mat-card-title fxLayoutAlign="center center"><span
+          *ngIf="dataSourceBrand?.length">{{dataSourceBrand.length}}</span> - Brands
+        </mat-card-title>
+      </mat-card>
+    </div>
+    <div fxFlex="25%">
+      <div *ngIf="loadingIngredient">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-card>
+        <mat-card-title fxLayoutAlign="center center"><span
+          *ngIf="dataSourceIngredient?.length">{{dataSourceIngredient.length}}</span> - Ingredients
+        </mat-card-title>
+      </mat-card>
+    </div>
+    <div fxFlex="25%">
+      <div *ngIf="loadingCategory">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-card>
+        <mat-card-title fxLayoutAlign="center center"><span
+          *ngIf="dataSourceCategory?.length">{{dataSourceCategory.length}}</span> - Categories
+        </mat-card-title>
+      </mat-card>
+    </div>
+  </div>
+
+  <br>
+
+  <div fxLayout="row wrap" fxLayoutGap="10px grid">
+    <div fxFlex="33%">
+      <div *ngIf="loadingProduct">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-card>
+        <mat-card-title fxLayoutAlign="center center">Products Brand representation</mat-card-title>
+
+        <mat-card-content>
+          <app-pie-chart [data]="prepareDataBrand(dataSourceProduct)" [height]="height" [margin]="margin"
+                         [width]="width"></app-pie-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="33%">
+      <div *ngIf="loadingProduct">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-card>
+        <mat-card-title fxLayoutAlign="center center">Products Ingredient representation</mat-card-title>
+
+        <mat-card-content *ngIf="dataSourceProduct">
+          <app-pie-chart [data]="prepareDataIngredient(dataSourceProduct)" [height]="height" [margin]="margin"
+                         [width]="width"></app-pie-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="34%">
+      <div *ngIf="loadingProduct">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-card>
+        <mat-card-title fxLayoutAlign="center center">Products Categories representation</mat-card-title>
+
+        <mat-card-content *ngIf="dataSourceProduct">
+          <app-pie-chart [data]="prepareDataCategory(dataSourceProduct)" [height]="height" [margin]="margin"
+                         [width]="width"></app-pie-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

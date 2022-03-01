@@ -1,0 +1,28 @@
+<div *ngIf="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div class="container">
+  <h2>Category Details</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-warning">
+    <strong>Warning!</strong> {{errorMessage | json}}
+  </div>
+
+  <mat-card *ngIf="dataSource" class="category-card">
+    <mat-card-title>{{dataSource.name}}</mat-card-title>
+    <mat-card-subtitle>created: {{dataSource.created | date:'medium'}}</mat-card-subtitle>
+    <mat-card-subtitle>updated: {{dataSource.updated | date:'medium'}}</mat-card-subtitle>
+    <img *ngIf="dataSource.image" [src]="viewImage(dataSource.image)" alt="{{dataSource.name}}" mat-card-image>
+    <mat-card-content>
+      <p>Id: {{dataSource.id}}</p>
+      <p>Ref: {{dataSource.ref}}</p>
+      <p>Description: {{dataSource.description || "-"}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="list()" color="primary" mat-raised-button>List</button>
+      <button [routerLink]="['update']" color="accent" mat-raised-button>Edit</button>
+      <button (click)="delete()" color="warn" mat-raised-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Fragrance</h2>
+
+  <div *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-warning">
+    <strong>Warning!</strong> {{errorMessage | json}}
+  </div>
+
+  <mat-card *ngIf="dataSource" class="example-card">
+    <mat-card-title>{{dataSource.name}}</mat-card-title>
+    <mat-card-subtitle>{{dataSource.date}}</mat-card-subtitle>
+    <mat-card-content>
+      <p>Id: {{dataSource.id}}</p>
+      <p>Capacity: {{dataSource.capacityMl}}</p>
+      <mat-list role="list">
+        <mat-list-item *ngFor="let sale of dataSource.sales" role="listitem">
+          <p>count: {{sale.count}}</p>
+          <p>city: {{sale.city}}</p>
+          <p>date: {{sale.date}}</p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <button (click)="back()" color="primary" mat-stroked-button>Back</button>
+  <button (click)="delete()" color="accent" mat-stroked-button>Delete</button>
+</div>

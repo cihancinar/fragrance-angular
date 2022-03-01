@@ -1,0 +1,85 @@
+<div *ngIf="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div class="container">
+  <div class="row-list">
+    <h2>Brands</h2>
+    <button [routerLink]="['create']" color="primary" mat-raised-button>Create</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-warning">
+    <strong>Warning!</strong> {{errorMessage | json}}
+  </div>
+
+  <div *ngIf="!dataSource?.length && !loading && !errorMessage">
+    No result found
+  </div>
+
+  <table *ngIf="dataSource?.length" [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef class="w-100" mat-header-cell> Id</th>
+      <td *matCellDef="let element" mat-cell> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Image Column -->
+    <ng-container matColumnDef="image">
+      <th *matHeaderCellDef mat-header-cell> Image</th>
+      <td *matCellDef="let element" mat-cell>
+        <img *ngIf="element.image" [src]="viewImage(element.image)" class="preview" width="100">
+      </td>
+    </ng-container>
+
+    <!-- Ref Column -->
+    <ng-container matColumnDef="ref">
+      <th *matHeaderCellDef mat-header-cell> Ref</th>
+      <td *matCellDef="let element" mat-cell> {{element.ref}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell> Name</th>
+      <td *matCellDef="let element" mat-cell><strong>{{element.name}}</strong></td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th *matHeaderCellDef mat-header-cell> Description</th>
+      <td *matCellDef="let element" mat-cell> {{element.description}} </td>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="created">
+      <th *matHeaderCellDef mat-header-cell> Created</th>
+      <td *matCellDef="let element" mat-cell> {{element.created | date:'medium'}} </td>
+    </ng-container>
+
+    <!-- Updated Column -->
+    <ng-container matColumnDef="updated">
+      <th *matHeaderCellDef mat-header-cell> Updated</th>
+      <td *matCellDef="let element" mat-cell> {{element.updated | date:'medium'}} </td>
+    </ng-container>
+
+    <!-- Option Column -->
+    <ng-container matColumnDef="option">
+      <th *matHeaderCellDef class="w-175" mat-header-cell> Option</th>
+      <td *matCellDef="let element" mat-cell>
+        <button [disabled]="loading" [routerLink]="[element.id]" color="primary" mat-mini-fab>
+          <mat-icon>search</mat-icon>
+        </button>
+        <button [disabled]="loading" [routerLink]="[element.id, 'update']" color="accent" mat-mini-fab>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button (click)="delete(element.id)" [disabled]="loading" color="warn" mat-mini-fab>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+</div>
+
+

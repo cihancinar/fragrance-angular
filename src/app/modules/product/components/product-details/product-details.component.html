@@ -1,0 +1,80 @@
+<div *ngIf="loading">
+  <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div class="container">
+  <h2>Product Details</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-warning">
+    <strong>Warning!</strong> {{errorMessage | json}}
+  </div>
+
+
+  <div fxLayout="row wrap" fxLayoutGap="10px grid">
+    <div fxFlex="25%">
+      <mat-card *ngIf="dataSource">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <img *ngIf="dataSource.brand.image" [src]="viewImage(dataSource.brand.image)"
+                 alt="{{dataSource.brand.name}}"
+                 mat-card-image>
+          </div>
+          <mat-card-title>{{dataSource.name}} -
+            <mat-icon *ngFor="let gender of dataSource.genders" [class.icon-female]="gender === 'FEMALE'"
+                      [class.icon-male]="gender === 'MALE'"
+                      mat-list-icon>{{ gender | lowercase }}</mat-icon>
+          </mat-card-title>
+          <mat-card-subtitle>created: {{dataSource.created | date:'medium'}}</mat-card-subtitle>
+          <mat-card-subtitle>updated: {{dataSource.updated | date:'medium'}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <img *ngIf="dataSource.image" [src]="viewImage(dataSource.image)" alt="{{dataSource.name}}" mat-card-image>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <div>
+            Categories
+            <mat-chip-list aria-label="Categories selection">
+              <mat-chip *ngFor="let category of dataSource.categories"
+                        [routerLink]="['/category', category.id]">{{category.name}}</mat-chip>
+            </mat-chip-list>
+          </div>
+          <mat-divider></mat-divider>
+          <div>
+            Tags
+            <mat-chip-list aria-label="Categories selection">
+              <mat-chip *ngFor="let tag of dataSource.tags">{{tag}}</mat-chip>
+            </mat-chip-list>
+          </div>
+          <mat-divider></mat-divider>
+
+          <p>Id: {{dataSource.id}}</p>
+          <p>Ref: {{dataSource.ref}}</p>
+          <p>Description: {{dataSource.description || "-"}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button (click)="list()" color="primary" mat-raised-button>List</button>
+          <button [routerLink]="['update']" color="accent" mat-raised-button>Edit</button>
+          <button (click)="delete()" color="warn" mat-raised-button>Delete</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+
+    <div fxFlex="25%">
+      <mat-card *ngIf="dataSource?.ingredients" class="card-400">
+        <mat-card-header>
+          <mat-card-title>Ingredients</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-chip-list aria-label="Ingredients selection" class="mat-chip-list-stacked">
+            <mat-chip *ngFor="let ingredient of dataSource.ingredients" [routerLink]="['/ingredient', ingredient.id]"
+                      color="primary"
+                      selected>{{ingredient.name}}</mat-chip>
+          </mat-chip-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,58 @@
+<div *ngIf="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div class="container">
+  <h2>Brand Creation</h2>
+  <mat-card class="card-400">
+    <mat-card-title>Brand</mat-card-title>
+
+    <div *ngIf="errorMessage" class="alert alert-warning">
+      <strong>Warning!</strong> {{errorMessage | json}}
+    </div>
+
+    <mat-card-content>
+      <form (submit)="submit()" [formGroup]="brandForm">
+        <div class="row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput required>
+            <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Description</mat-label>
+            <input formControlName="description" matInput>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <img *ngIf="preview" [src]="preview" class="preview" width="300">
+        </div>
+
+        <div class="row">
+          <input
+            (change)="selectFile($event)"
+            accept="image/*"
+            formControlName="image"
+            id="image"
+            name="image"
+            type="file"
+          />
+        </div>
+
+        <div class="row">
+          <button class="col" color="primary" mat-raised-button type="submit">Create</button>
+          <button (click)="back()" class="col" color="primary" mat-stroked-button type="button">Back</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+
+</div>
+
+
+

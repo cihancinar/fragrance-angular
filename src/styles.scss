@@ -1,0 +1,192 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$palette-primary: (
+  50: #3498DB,
+  100: #3498DB,
+  200: #3498DB,
+  300: #3498DB,
+  400: #3498DB,
+  500: #3498DB,
+  600: #3498DB,
+  700: #3498DB,
+  800: #3498DB,
+  900: #3498DB,
+  A100: #3498DB,
+  A200: #3498DB,
+  A400: #3498DB,
+  A700: #3498DB,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$palette-accent: (
+  50: #F1C40F,
+  100: #F1C40F,
+  200: #F1C40F,
+  300: #F1C40F,
+  400: #F1C40F,
+  500: #F1C40F,
+  600: #F1C40F,
+  700: #F1C40F,
+  800: #F1C40F,
+  900: #F1C40F,
+  A100: #F1C40F,
+  A200: #F1C40F,
+  A400: #F1C40F,
+  A700: #F1C40F,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$palette-warn: (
+  50: #E74C3C,
+  100: #E74C3C,
+  200: #E74C3C,
+  300: #E74C3C,
+  400: #E74C3C,
+  500: #E74C3C,
+  600: #E74C3C,
+  700: #E74C3C,
+  800: #E74C3C,
+  900: #E74C3C,
+  A100: #E74C3C,
+  A200: #E74C3C,
+  A400: #E74C3C,
+  A700: #E74C3C,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$fragrance-primary: mat.define-palette($palette-primary, 100, 50, 200);
+$fragrance-accent: mat.define-palette($palette-accent, 100, 50, 200);
+$fragrance-warn: mat.define-palette($palette-warn, 100, 50, 200);
+
+$fragrance-theme: mat.define-light-theme((
+  color: (
+    primary: $fragrance-primary,
+    accent: $fragrance-accent,
+    warn: $fragrance-warn,
+  )
+));
+@include mat.core-theme($fragrance-theme);
+@include mat.button-theme($fragrance-theme);
+@include mat.progress-bar-theme($fragrance-theme);
+@include mat.chips-theme($fragrance-theme);
+
+:root {
+  --font-stack: Roboto, "Helvetica Neue", sans-serif;
+
+  --toolbar-background: #636E72;
+  --toolbar-color: white;
+  --breadcrumb-background: #B2BEC3;
+  --breadcrumb-color: black;
+  --sidenav-background: #2D3436;
+  --sidenav-color: white;
+  --container-background: #DFE6E9;
+  --container-color: black;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-stack);
+}
+
+.container {
+  padding: 10px 30px 30px;
+}
+
+button {
+  margin: 5px !important;
+}
+
+.w-100 {
+  width: 100px;
+}
+
+.w-150 {
+  width: 150px;
+}
+
+.w-175 {
+  width: 175px;
+}
+
+table {
+  width: 100%;
+}
+
+.row-list {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.card-400 {
+  max-width: 400px;
+}
+
+mat-card {
+  .mat-card-avatar {
+    width: 50px;
+    height: 50px;
+
+    .mat-card-image {
+      background-size: cover;
+      margin: 5px;
+      border: 2px solid #636E72;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+}

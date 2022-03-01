@@ -1,0 +1,113 @@
+<div *ngIf="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div class="container">
+  <h2>Product Creation</h2>
+  <mat-card class="example-card">
+    <mat-card-title>Product</mat-card-title>
+
+    <div *ngIf="errorMessage" class="alert alert-warning">
+      <strong>Warning!</strong> {{errorMessage | json}}
+    </div>
+
+    <mat-card-content>
+      <form (submit)="submit()" [formGroup]="productForm">
+        <div class="row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput required>
+            <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Description</mat-label>
+            <input formControlName="description" matInput>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Brand</mat-label>
+            <mat-select formControlName="brand">
+              <mat-option *ngFor="let brand of brands" [value]="brand">{{brand.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Ingredient(s)</mat-label>
+            <mat-select formControlName="ingredients" multiple>
+              <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">{{ingredient.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Categories</mat-label>
+            <mat-select formControlName="categories" multiple>
+              <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Add Tags</mat-label>
+            <mat-chip-list #chipList aria-label="Tag selection">
+              <mat-chip (removed)="remove(tag)" *ngFor="let tag of tags">
+                {{tag.name}}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input (matChipInputTokenEnd)="addTags($event)"
+                     [matChipInputAddOnBlur]="addTagsOnBlur"
+                     [matChipInputFor]="chipList"
+                     [matChipInputSeparatorKeyCodes]="tagsSeparatorKeysCodes"
+                     formControlName="tags" placeholder="Tags..">
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Gender(s)</mat-label>
+            <mat-select formControlName="genders" multiple>
+              <mat-option *ngFor="let gender of genders" [value]="gender">{{gender}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <img *ngIf="preview" [src]="preview" class="preview" width="300">
+        </div>
+
+        <div class="row">
+          <input
+            (change)="selectFile($event)"
+            accept="image/*"
+            formControlName="image"
+            id="image"
+            name="image"
+            type="file"
+          />
+        </div>
+
+        <div class="row">
+          <button class="col" color="primary" mat-raised-button type="submit">Create</button>
+          <button (click)="back()" class="col" color="primary" mat-stroked-button type="button">Back</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+
+</div>
+
+
+

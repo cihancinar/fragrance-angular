@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row-list">
+    <h2>Fragrance</h2>
+    <button [routerLink]="['create']" color="primary" mat-raised-button>Create</button>
+  </div>
+
+  <div *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-warning">
+    <strong>Warning!</strong> {{errorMessage | json}}
+  </div>
+
+  <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef class="w-150" mat-header-cell> Id</th>
+      <td *matCellDef="let element" mat-cell> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell> Name</th>
+      <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+    </ng-container>
+
+    <!-- CapacityMl Column -->
+    <ng-container matColumnDef="capacityMl">
+      <th *matHeaderCellDef mat-header-cell> CapacityMl</th>
+      <td *matCellDef="let element" mat-cell> {{element.capacityMl}} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th *matHeaderCellDef mat-header-cell> Date</th>
+      <td *matCellDef="let element" mat-cell> {{element.date}} </td>
+    </ng-container>
+
+    <!-- Option Column -->
+    <ng-container matColumnDef="option">
+      <th *matHeaderCellDef class="w-175" mat-header-cell> Option</th>
+      <td *matCellDef="let element" mat-cell>
+        <button [routerLink]="[element.id]" color="primary" mat-mini-fab>
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button (click)="delete(element.id)" color="warn" mat-mini-fab>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+</div>
+
+

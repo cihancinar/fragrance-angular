@@ -1,0 +1,80 @@
+<div class="container">
+  <mat-card class="example-card">
+    <mat-card-title>Fragrance</mat-card-title>
+    <mat-card-content>
+      <form (submit)="submit()" [formGroup]="fragranceForm">
+        <div class="row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput required>
+            <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>CapacityMl</mat-label>
+            <input formControlName="capacityMl" matInput required>
+            <mat-error *ngIf="hasError('capacityMl', 'required')">CapacityMl is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="form-field">
+            <input [matDatepicker]="picker" formControlName="date" id="date" matInput placeholder="Choose a date">
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="hasError('date', 'required')">Date is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <div>
+            Add Sales
+            <button (click)="addSale()" class="col" color="primary" mat-mini-fab type="button">
+              <mat-icon>plus_one</mat-icon>
+            </button>
+          </div>
+
+          <table class="table table-bordered" formArrayName="sales">
+            <tr *ngFor="let sale of getSales().controls; let i=index" [formGroupName]="i">
+              <td>
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Count</mat-label>
+                  <input formControlName="count" matInput required>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>City</mat-label>
+                  <input formControlName="city" matInput required>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" class="form-field">
+                  <input [matDatepicker]="picker" formControlName="date" matInput placeholder="Choose a date">
+                  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td>
+                <button (click)="removeSale(i)" class="col" color="warn" mat-mini-fab>
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+          </table>
+        </div>
+
+        <div class="row">
+          <button class="col" color="primary" mat-raised-button type="submit">Create</button>
+          <button (click)="back()" class="col" color="primary" mat-stroked-button>Back</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+
+</div>
+
+
+
