@@ -30,16 +30,16 @@ export class FragranceDetailsComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.fragranceService.getFragrance(fragranceId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.dataSource = resp;
           this.loading = false;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
         })
-      );
+      });
   }
 
   back(): void {
@@ -50,8 +50,8 @@ export class FragranceDetailsComponent implements OnInit {
     const fragranceId = this.route.snapshot.paramMap.get('fragranceId');
 
     this.fragranceService.deleteFragrance(fragranceId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: () => {
           this._snackBar.open('Fragrance deleted', 'Undo', {
             duration: 3000,
             horizontalPosition: "right",
@@ -59,12 +59,11 @@ export class FragranceDetailsComponent implements OnInit {
           });
           this.loading = false;
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
-
+        }
+      });
     this.back();
   }
 }

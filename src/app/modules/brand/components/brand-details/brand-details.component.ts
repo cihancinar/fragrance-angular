@@ -30,16 +30,16 @@ export class BrandDetailsComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.brandService.getBrand(brandId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.dataSource = resp;
           this.loading = false;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
         })
-      );
+      });
   }
 
   list(): void {
@@ -50,8 +50,8 @@ export class BrandDetailsComponent implements OnInit {
     const brandId = this.route.snapshot.paramMap.get('brandId');
 
     this.brandService.deleteBrand(brandId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: () => {
           this._snackBar.open('Brand deleted', 'Undo', {
             duration: 3000,
             horizontalPosition: "right",
@@ -59,11 +59,11 @@ export class BrandDetailsComponent implements OnInit {
           });
           this.loading = false;
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
 
     this.list();
   }

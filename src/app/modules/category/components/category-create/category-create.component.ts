@@ -59,7 +59,8 @@ export class CategoryCreateComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.categoryService.createCategory(category)
-      .subscribe(resp => {
+      .subscribe({
+        next: (resp) => {
           this.loading = false;
           this._snackBar.open('Category created', 'Undo', {
             duration: 3000,
@@ -68,11 +69,11 @@ export class CategoryCreateComponent implements OnInit {
           });
           this.router.navigateByUrl('/category/' + resp.id);
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
   }
 
   public hasError = (controlName: string, errorName: string) => {

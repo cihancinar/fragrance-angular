@@ -43,51 +43,51 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.loadingProduct = true;
     this.productService.getProducts()
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.loadingProduct = false;
           this.dataSourceProduct = resp;
         },
-        (error => {
+        error: () => {
           this.loadingProduct = false;
-        })
-      );
+        }
+      });
 
     this.loadingCategory = true;
     this.categoryService.getCategories()
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.loadingCategory = false;
           this.dataSourceCategory = resp;
         },
-        (error => {
+        error: () => {
           this.loadingCategory = false;
-        })
-      );
+        }
+      });
 
     this.loadingBrand = true;
     this.brandService.getBrands()
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.loadingBrand = false;
           this.dataSourceBrand = resp;
         },
-        (error => {
+        error: () => {
           this.loadingBrand = false;
-        })
-      );
+        }
+      });
 
     this.loadingIngredient = true;
     this.ingredientService.getIngredients()
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.loadingIngredient = false;
           this.dataSourceIngredient = resp;
         },
-        (error => {
+        error: () => {
           this.loadingIngredient = false;
-        })
-      );
+        }
+      });
   }
 
   public prepareDataBrand(data: Product[]): any {

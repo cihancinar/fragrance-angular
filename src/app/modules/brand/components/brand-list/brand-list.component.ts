@@ -20,33 +20,33 @@ export class BrandListComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.brandService.getBrands()
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.dataSource = resp;
           this.loading = false;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
         })
-      );
+      });
   }
 
   delete(id: any) {
     this.loading = true;
     this.errorMessage = "";
     this.brandService.deleteBrand(id)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: () => {
           this.loading = false;
           this.ngOnInit();
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
           this.ngOnInit();
         })
-      );
+      });
   }
 
   viewImage(image: File) {

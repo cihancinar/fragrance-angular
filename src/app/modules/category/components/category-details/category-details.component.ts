@@ -30,16 +30,16 @@ export class CategoryDetailsComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.categoryService.getCategory(categoryId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.dataSource = resp;
           this.loading = false;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
         })
-      );
+      });
   }
 
   list(): void {
@@ -50,8 +50,8 @@ export class CategoryDetailsComponent implements OnInit {
     const categoryId = this.route.snapshot.paramMap.get('categoryId');
 
     this.categoryService.deleteCategory(categoryId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: () => {
           this._snackBar.open('Category deleted', 'Undo', {
             duration: 3000,
             horizontalPosition: "right",
@@ -59,11 +59,11 @@ export class CategoryDetailsComponent implements OnInit {
           });
           this.loading = false;
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
 
     this.list();
   }

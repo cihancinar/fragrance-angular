@@ -41,16 +41,16 @@ export class BrandUpdateComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.brandService.getBrand(brandId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.dataSource = resp;
           this.loading = false;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
         })
-      );
+      });
   }
 
   submit() {
@@ -64,7 +64,8 @@ export class BrandUpdateComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.brandService.updateBrand(this.dataSource.id, brand)
-      .subscribe(resp => {
+      .subscribe({
+        next: (resp) => {
           this.loading = false;
           this._snackBar.open('Brand updated', 'Undo', {
             duration: 3000,
@@ -73,11 +74,11 @@ export class BrandUpdateComponent implements OnInit {
           });
           this.router.navigateByUrl('/brand/' + resp.id);
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
   }
 
   selectFile(event: any): void {

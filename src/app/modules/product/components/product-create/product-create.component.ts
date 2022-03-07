@@ -74,34 +74,34 @@ export class ProductCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.brandService.getBrands()
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.brands = resp;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
         })
-      );
+      });
 
     this.categoryService.getCategories()
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.categories = resp;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
         })
-      );
+      });
 
     this.ingredientService.getIngredients()
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.ingredients = resp;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
         })
-      );
+      });
   }
 
   submit() {
@@ -116,7 +116,8 @@ export class ProductCreateComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.productService.createProduct(product)
-      .subscribe(resp => {
+      .subscribe({
+        next: (resp) => {
           this.loading = false;
           this._snackBar.open('Product created', 'Undo', {
             duration: 3000,
@@ -125,11 +126,11 @@ export class ProductCreateComponent implements OnInit {
           });
           this.router.navigateByUrl('/product/' + resp.id);
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
   }
 
   public hasError = (controlName: string, errorName: string) => {

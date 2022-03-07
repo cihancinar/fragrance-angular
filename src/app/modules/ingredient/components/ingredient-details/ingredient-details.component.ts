@@ -31,16 +31,16 @@ export class IngredientDetailsComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.ingredientService.getIngredient(ingredientId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.dataSource = resp;
           this.loading = false;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
         })
-      );
+      });
   }
 
   list(): void {
@@ -51,8 +51,8 @@ export class IngredientDetailsComponent implements OnInit {
     const ingredientId = this.route.snapshot.paramMap.get('ingredientId');
 
     this.ingredientService.deleteIngredient(ingredientId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this._snackBar.open('Ingredient deleted', 'Undo', {
             duration: 3000,
             horizontalPosition: "right",
@@ -60,11 +60,11 @@ export class IngredientDetailsComponent implements OnInit {
           });
           this.loading = false;
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
 
     this.list();
   }

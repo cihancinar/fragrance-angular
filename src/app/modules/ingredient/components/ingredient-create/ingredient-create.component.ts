@@ -59,7 +59,8 @@ export class IngredientCreateComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.ingredientService.createIngredient(ingredient)
-      .subscribe(resp => {
+      .subscribe({
+        next: (resp) => {
           this.loading = false;
           this._snackBar.open('Ingredient created', 'Undo', {
             duration: 3000,
@@ -68,11 +69,11 @@ export class IngredientCreateComponent implements OnInit {
           });
           this.router.navigateByUrl('/ingredient/' + resp.id);
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
   }
 
   public hasError = (controlName: string, errorName: string) => {

@@ -58,7 +58,8 @@ export class BrandCreateComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.brandService.createBrand(brand)
-      .subscribe(resp => {
+      .subscribe({
+        next: (resp) => {
           this.loading = false;
           this._snackBar.open('Brand created', 'Undo', {
             duration: 3000,
@@ -67,11 +68,11 @@ export class BrandCreateComponent implements OnInit {
           });
           this.router.navigateByUrl('/brand/' + resp.id);
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
   }
 
   public hasError = (controlName: string, errorName: string) => {

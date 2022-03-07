@@ -42,16 +42,16 @@ export class CategoryUpdateComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.categoryService.getCategory(categoryId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.dataSource = resp;
           this.loading = false;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
         })
-      );
+      });
   }
 
   submit() {
@@ -65,7 +65,8 @@ export class CategoryUpdateComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.categoryService.updateCategory(this.dataSource.id, category)
-      .subscribe(resp => {
+      .subscribe({
+        next: (resp) => {
           this.loading = false;
           this._snackBar.open('Category updated', 'Undo', {
             duration: 3000,
@@ -74,11 +75,11 @@ export class CategoryUpdateComponent implements OnInit {
           });
           this.router.navigateByUrl('/category/' + resp.id);
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
   }
 
   selectFile(event: any): void {

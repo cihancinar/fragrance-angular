@@ -30,16 +30,16 @@ export class ProductDetailsComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     this.productService.getProduct(productId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.dataSource = resp;
           this.loading = false;
         },
-        (error => {
+        error: (error => {
           this.errorMessage = error;
           this.loading = false;
         })
-      );
+      });
   }
 
   list(): void {
@@ -50,8 +50,8 @@ export class ProductDetailsComponent implements OnInit {
     const productId = this.route.snapshot.paramMap.get('productId');
 
     this.productService.deleteProduct(productId)
-      .subscribe(
-        (resp) => {
+      .subscribe({
+        next: () => {
           this._snackBar.open('Product deleted', 'Undo', {
             duration: 3000,
             horizontalPosition: "right",
@@ -59,11 +59,11 @@ export class ProductDetailsComponent implements OnInit {
           });
           this.loading = false;
         },
-        (error => {
+        error: (error) => {
           this.errorMessage = error;
           this.loading = false;
-        })
-      );
+        }
+      });
 
     this.list();
   }
