@@ -1,6 +1,8 @@
 mat-toolbar {
   background: var(--toolbar-background) !important;
   color: var(--toolbar-color) !important;
+  z-index: 999;
+  position: fixed;
 
   mat-divider {
     border-right-color: white !important;
@@ -22,7 +24,6 @@ mat-sidenav-container {
   min-height: 100%;
   width: 100%;
   min-width: 100%;
-  padding-bottom: 50px;
   background: var(--container-background);
   color: var(--container-color);
 }
@@ -30,11 +31,16 @@ mat-sidenav-container {
 mat-sidenav {
   width: 200px;
   background: var(--sidenav-background) !important;
+  margin-top: 64px;
 
   .mat-list-item.active {
     color: black !important;
     text-decoration: underline !important;
     background: #DFE6E9 !important;
+  }
+
+  .mat-list-base {
+    padding-top: 0 !important;
   }
 
   .mat-list-base .mat-list-item {
@@ -52,6 +58,10 @@ mat-sidenav {
 }
 
 .breadcrumb {
+  width: 100%;
+  z-index: 999;
+  position: fixed;
+  margin-top: 64px;
   padding-left: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
